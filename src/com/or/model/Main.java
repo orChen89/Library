@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NotInStockException {
 
         Book book1 = new Book(1111, "Kobra", 60);
         Book book2 = new Book(1212, "Kai", 60);
@@ -15,7 +15,7 @@ public class Main {
 
 
         Book [] books = {book1, book2, book3, bs1, bs2, bs3};
-        int [] inStock = {2,5,3,7,9,5};
+        int [] inStock = {1,5,3,7,9,5};
 
         System.out.println(bs1);
         System.out.println(bs2);
@@ -25,7 +25,7 @@ public class Main {
 
         Storage st = new Storage(books,inStock);
 
-        st.addBook(book1, 2);
+        st.addBook(book1, 1);
         st.addBook(book2, 5);
         st.addBook(book3, 3);
         st.addBook(bs1, 7);
@@ -42,8 +42,16 @@ public class Main {
         }
 
         System.out.println();
+        st.rentBook(book1);
+        System.out.println();
 
-        st.rentBook(book2);
+        try {
+            st.rentBook(book1);
+        } catch (NotInStockException e){
+            System.out.println(e);
+            System.out.println("Please choose a different book!");
+        }
+
         System.out.println();
         st.rentBook(bs3);
         System.out.println();

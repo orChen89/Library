@@ -30,7 +30,7 @@ public class Storage {
         }
     }
 
-    public void rentBook(Book book) {
+    public void rentBook(Book book) throws NotInStockException {
 
         for (int i = 0; i < books.length; i++) {
             if (books[i].getName().equals(book.getName())) {
@@ -39,11 +39,12 @@ public class Storage {
                     System.out.println(books[i].getName() + " is in stock, you can have it!");
                     System.out.println("Current stock of " + books[i].getName() + " is: " + inStock[i]);
                     break;
-                } else if (inStock[i] <= 0) {
-                    System.out.println("We don't have this book in stock currently!");
-                    return;
+                } else if (inStock[i] == 0) {
+                    throw new NotInStockException(book);
+
                 }
             }
+
         }
     }
 
